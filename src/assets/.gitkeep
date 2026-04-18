@@ -1,0 +1,9 @@
+# Carpeta para assets del proyecto
+
+## Imágenes necesarias para el README:
+- app-desktop.png: Captura de la interfaz principal en desktop
+- app-mobile.png: Captura de resultado en dispositivo móvil 
+- app-responsive.png: Captura mostrando adaptabilidad multi-dispositivo
+- app-error-validation.png: Captura del error de validación
+
+Estas imágenes se referencian en el README.md para mostrar la funcionalidad de la aplicación.

@@ -6,6 +6,25 @@ Una aplicación web desarrollada en Angular 17 que detecta si una secuencia de A
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-blue?style=for-the-badge&logo=tailwindcss)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.2-blue?style=for-the-badge&logo=typescript)
 
+## 📸 Capturas de Pantalla
+
+### 💻 Interfaz Principal - Desktop
+![Aplicación Desktop](./src/assets/app-desktop.png)
+*Interfaz principal con formulario de entrada y resultados de validación*
+
+### 📱 Diseño Responsive - Móvil  
+![Aplicación Mobile](./src/assets/app-mobile.png)
+*Resultado "Humano confirmado" en dispositivo móvil*
+
+### 🎨 Adaptabilidad Multi-dispositivo
+![Responsive Design](./src/assets/app-responsive.png)
+*La aplicación se adapta perfectamente a iPhone, iPad y dispositivos de escritorio*
+
+### 🔍 Estados de Validación
+- **✅ Mutante Detectado**: Mensaje verde con confirmación
+- **ℹ️ Humano Confirmado**: Mensaje azul informativo  
+- **❌ Error de Validación**: Mensaje rojo con descripción del error
+
 ## 📋 Descripción del Problema
 
 El proyecto resuelve la necesidad de detectar si un humano es mutante basándose en su secuencia de ADN. Un mutante se identifica cuando se encuentran **más de una secuencia de cuatro letras iguales** de forma oblicua, horizontal o vertical en una matriz NxN.
@@ -168,9 +187,12 @@ Resultado: "Es humano. No se detectaron suficientes secuencias mutantes."
 
 ### Ejemplo 3: Error de Validación ⚠️
 ```
-Entrada: ATGCGA,CAGTGC,TTATHT
+Entrada: ATGCGA,CAGTGC,TTATHT,AGACGG,HHHHTC,TCACTG
 Resultado: "ADN inválido: debe ser una matriz NxN con solo caracteres A, T, C y G."
 ```
+
+![Ejemplo Error Validación](./src/assets/app-error-validation.png)
+*Ejemplo real de error de validación mostrado en la aplicación*
 
 ## 🔧 Configuración de Desarrollo
 
