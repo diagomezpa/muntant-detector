@@ -1,11 +1,96 @@
-<textarea [(ngModel)]="inputDna" placeholder="Ingresa ADN separado por comas (ej: ATGC,CAGT,TTAC,AGAA)"></textarea>
+<div class="min-h-screen bg-slate-100 px-4 py-10">
+  <div class="mx-auto max-w-2xl rounded-2xl bg-white shadow-xl">
+    <div class="rounded-t-2xl bg-gradient-to-r from-indigo-600 to-violet-600 px-6 py-8 text-white">
+      <h1 class="text-3xl font-bold">Mutant Detector 🧬</h1>
+      <p class="mt-2 text-sm text-white/90">
+        Analiza una secuencia NxN y detecta si pertenece a un mutante.
+      </p>
+    </div>
 
-<button (click)="validar()">Validar</button>
+    <div class="p-6">
+      <form [formGroup]="dnaForm" (ngSubmit)="validateDna()" class="space-y-5">
+        <div>
+          <label for="dnaSequence" class="mb-2 block text-sm font-semibold text-slate-700">
+            Secuencia de ADN
+          </label>
 
-<p *ngIf="error" style="color: red;">
-  ⚠️ {{ error }}
-</p>
+          <textarea
+            id="dnaSequence"
+            formControlName="dnaSequence"
+            rows="5"
+            placeholder="Ej: ATGCGA,CAGTGC,TTATGT,AGAAGG,CCCCTA,TCACTG"
+            class="w-full rounded-xl border border-slate-300 px-4 py-3 font-mono text-sm text-slate-800 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+          ></textarea>
 
-<p *ngIf="resultado !== null && !error">
-  Resultado: {{ resultado ? 'Mutante 🧬' : 'Humano 👤' }}
-</p>
+          <p class="mt-2 text-xs text-slate-500">
+            Usa filas separadas por comas. Solo se permiten A, T, C y G.
+          </p>
+
+          <p
+            *ngIf="dnaSequenceControl?.hasError('required') && dnaSequenceControl?.touched"
+            class="mt-2 text-sm text-red-600"
+          >
+            Las secuencias de ADN son requeridas.
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-3 sm:flex-row">
+          <button
+            type="submit"
+            [disabled]="isLoading"
+            class="rounded-xl bg-indigo-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {{ isLoading ? 'Analizando...' : 'Validar ADN' }}
+          </button>
+
+          <button
+            type="button"
+            (click)="loadExample('mutant')"
+            [disabled]="isLoading"
+            class="rounded-xl bg-emerald-100 px-5 py-3 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-200"
+          >
+            Ejemplo mutante
+          </button>
+
+          <button
+            type="button"
+            (click)="loadExample('human')"
+            [disabled]="isLoading"
+            class="rounded-xl bg-blue-100 px-5 py-3 text-sm font-semibold text-blue-700 transition hover:bg-blue-200"
+          >
+            Ejemplo humano
+          </button>
+
+          <button
+            type="button"
+            (click)="clearForm()"
+            [disabled]="isLoading"
+            class="rounded-xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+          >
+            Limpiar
+          </button>
+        </div>
+      </form>
+
+      <div *ngIf="result" class="mt-6 rounded-xl p-4"
+        [ngClass]="{
+          'bg-emerald-50 text-emerald-700 border border-emerald-200': result.type === 'success',
+          'bg-blue-50 text-blue-700 border border-blue-200': result.type === 'info',
+          'bg-red-50 text-red-700 border border-red-200': result.type === 'error'
+        }"
+      >
+        <h3 class="text-base font-bold">
+          {{ result.type === 'success'
+            ? 'Mutante detectado'
+            : result.type === 'info'
+            ? 'Humano confirmado'
+            : 'Error de validación' }}
+        </h3>
+
+        <p class="mt-1 text-sm">
+          {{ result.message }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

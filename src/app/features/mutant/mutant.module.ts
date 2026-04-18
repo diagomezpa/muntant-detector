@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { MutantCheckerComponent } from './components/mutant-checker/mutant-checker.component';
 
 @NgModule({
@@ -9,7 +10,7 @@ import { MutantCheckerComponent } from './components/mutant-checker/mutant-check
   ],
   imports: [
     CommonModule,
-    FormsModule
+    ReactiveFormsModule
   ],
   exports: [
     MutantCheckerComponent
