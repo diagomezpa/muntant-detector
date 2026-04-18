@@ -1,0 +1,11 @@
+<textarea [(ngModel)]="inputDna" placeholder="Ingresa ADN separado por comas (ej: ATGC,CAGT,TTAC,AGAA)"></textarea>
+
+<button (click)="validar()">Validar</button>
+
+<p *ngIf="error" style="color: red;">
+  ⚠️ {{ error }}
+</p>
+
+<p *ngIf="resultado !== null && !error">
+  Resultado: {{ resultado ? 'Mutante 🧬' : 'Humano 👤' }}
+</p>
