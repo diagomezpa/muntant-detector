@@ -1,238 +1,95 @@
 # 🧬 Mutant Detector
 
-Una aplicación web desarrollada en Angular 17 que detecta si una secuencia de ADN pertenece a un mutante basándose en el análisis de patrones genéticos.
+Aplicación web desarrollada en Angular que detecta si una secuencia de ADN pertenece a un mutante mediante el análisis de patrones en una matriz NxN.
 
-![Mutant Detector Preview](https://img.shields.io/badge/Angular-17-red?style=for-the-badge&logo=angular)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-blue?style=for-the-badge&logo=tailwindcss)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.2-blue?style=for-the-badge&logo=typescript)
+## 🚀 Demo
 
-## 📸 Capturas de Pantalla
-
-### 💻 Interfaz Principal - Desktop
 ![Aplicación Desktop](./src/assets/app-desktop.png)
-*Interfaz principal con formulario de entrada y resultados de validación*
+*Interfaz principal con validación en tiempo real*
 
-### 📱 Diseño Responsive - Móvil  
-![Aplicación Mobile](./src/assets/app-mobile.png)
-*Resultado "Humano confirmado" en dispositivo móvil*
+**Ejemplo de entrada:**
+```
+ATGCGA,CAGTGC,TTATGT,AGAAGG,CCCCTA,TCACTG
+```
 
-### 🎨 Adaptabilidad Multi-dispositivo
-![Responsive Design](./src/assets/app-responsive.png)
-*La aplicación se adapta perfectamente a iPhone, iPad y dispositivos de escritorio*
+**Resultado:**
+- ✅ **Mutante** → múltiples secuencias detectadas
+- ❌ **Humano** → no cumple condiciones  
+- ⚠️ **Error** → formato inválido
 
-### 🔍 Estados de Validación
-- **✅ Mutante Detectado**: Mensaje verde con confirmación
-- **ℹ️ Humano Confirmado**: Mensaje azul informativo  
-- **❌ Error de Validación**: Mensaje rojo con descripción del error
+![Error de Validación](./src/assets/app-error-validation.png)
+*Ejemplo de validación con caracteres inválidos*
 
-## 📋 Descripción del Problema
+## 📋 Descripción
 
-El proyecto resuelve la necesidad de detectar si un humano es mutante basándose en su secuencia de ADN. Un mutante se identifica cuando se encuentran **más de una secuencia de cuatro letras iguales** de forma oblicua, horizontal o vertical en una matriz NxN.
+Un humano es considerado mutante si su ADN contiene **más de una secuencia de 4 letras iguales** en cualquiera de estas direcciones:
 
-### Criterios de Detección
-- **Matriz NxN**: El ADN debe representarse como una tabla cuadrada
-- **Caracteres válidos**: Solo se permiten A, T, C, G (bases nitrogenadas)
-- **Patrones mutantes**: Secuencias de 4+ caracteres idénticos en línea
-- **Direcciones**: Horizontal, vertical, diagonal y diagonal inversa
+- **Horizontal** →
+- **Vertical** ↓
+- **Diagonal principal** ↘
+- **Diagonal inversa** ↙
 
-## ✨ Características
+## 🛠️ Tecnologías
 
-- ✅ **Interfaz moderna** con Tailwind CSS
-- ✅ **Formularios reactivos** con validación en tiempo real
-- ✅ **Ejemplos precargados** para pruebas rápidas
-- ✅ **Diseño responsive** para móvil, tablet y desktop
-- ✅ **Resultados visuales** con códigos de color
-- ✅ **Validación robusta** de entrada de datos
-- ✅ **Arquitectura escalable** con servicios separados
+- **Angular**
+- **TypeScript**  
+- **Reactive Forms**
+- **Tailwind CSS**
 
-## 🚀 Instalación
-
-### Prerrequisitos
-- Node.js (v18 o superior)
-- npm o yarn
-- Angular CLI
-
-### Pasos de instalación
+## ⚙️ Instalación
 
 ```bash
-# 1. Clonar el repositorio
-git clone https://github.com/tu-usuario/mutant-detector.git
+git clone https://github.com/TU-USUARIO/mutant-detector.git
 cd mutant-detector
-
-# 2. Instalar dependencias
 npm install
-
-# 3. Iniciar el servidor de desarrollo
 npm start
-
-# 4. Abrir en el navegador
-# http://localhost:4200
 ```
 
-## 🛠️ Tecnologías Utilizadas
+**Abrir en:** 👉 http://localhost:4200
 
-| Tecnología | Versión | Propósito |
-|------------|---------|-----------|
-| Angular | 17.0.0 | Framework principal |
-| TypeScript | 5.2.0 | Lenguaje de desarrollo |
-| Tailwind CSS | 3.4.19 | Estilos y diseño |
-| RxJS | 7.8.0 | Programación reactiva |
-| Angular Forms | 17.0.0 | Formularios reactivos |
+## 🧠 Uso
 
-## 📱 Funcionalidades
+1. **Ingresa el ADN** separado por comas
+2. **Ejemplo:**
+   ```
+   ATGCGA,CAGTGC,TTATGT,AGAAGG,CCCCTA,TCACTG
+   ```
+3. **Presiona** "Validar ADN"
 
-### 🔍 Validación de ADN
-```typescript
-// Ejemplo de secuencia mutante
-const dna = [
-  "ATGCGA",
-  "CAGTGC", 
-  "TTATGT",
-  "AGAAGG",
-  "CCCCTA",  // ← Secuencia horizontal de C's
-  "TCACTG"
-];
+También puedes usar los **botones de ejemplo**.
 
-isMutant(dna); // → true
-```
+## 🧪 Algoritmo
 
-### 🎯 Casos de Uso
+Se recorre la matriz NxN buscando secuencias consecutivas de 4 caracteres iguales en 4 direcciones:
 
-| Tipo | Entrada | Resultado | Descripción |
-|------|---------|-----------|-------------|
-| **Mutante** | `ATGCGA,CAGTGC,TTATGT,AGAAGG,CCCCTA,TCACTG` | ✅ `true` | Múltiples secuencias detectadas |
-| **Humano** | `ATGCGA,CAGTGC,TTATTT,AGACGG,GCGTCA,TCACTG` | ❌ `false` | Una sola secuencia encontrada |
-| **Inválido** | `ATGCGA,CAGTGC,TTATHT` | ⚠️ Error | Caracteres no válidos (H) |
+- ➡ **Horizontal**
+- ⬇ **Vertical** 
+- ↘ **Diagonal**
+- ↙ **Diagonal inversa**
 
-### 🖥️ Interfaz de Usuario
+Si se encuentran **más de una**, el ADN es mutante.
 
-#### Pantalla Principal
-- **Header atractivo** con gradiente púrpura
-- **Área de texto** para entrada de secuencias ADN
-- **Botones de ejemplo** para carga rápida de datos
-- **Validación en tiempo real** con mensajes descriptivos
+**Complejidad:**
+- **Tiempo:** O(n²)
+- **Espacio:** O(n²)
 
-#### Resultados
-- 🟢 **Verde**: Mutante detectado
-- 🔵 **Azul**: Humano confirmado  
-- 🔴 **Rojo**: Error de validación
-
-## 📁 Estructura del Proyecto
+## 📁 Estructura
 
 ```
-src/
-├── app/
-│   ├── core/
-│   │   └── services/
-│   │       └── mutant.service.ts      # Lógica de detección
-│   ├── features/
-│   │   └── mutant/
-│   │       ├── components/
-│   │       │   └── mutant-checker/    # Componente principal
-│   │       └── mutant.module.ts       # Módulo de funcionalidad
-│   ├── shared/                        # Componentes compartidos
-│   ├── app.component.*               # Componente raíz
-│   └── app.module.ts                 # Módulo principal
-├── styles.css                        # Estilos globales + Tailwind
-└── index.html                       # Página principal
+src/app/
+├── core/services/mutant.service.ts
+├── features/mutant/components/mutant-checker/
+├── app.module.ts
 ```
 
-## 🧪 Algoritmo de Detección
+## 🎯 Decisiones técnicas
 
-### Proceso de Validación
-
-1. **Validación de formato**: Verificar matriz NxN
-2. **Validación de caracteres**: Solo A, T, C, G permitidos
-3. **Búsqueda de patrones**: En 4 direcciones
-4. **Conteo de secuencias**: Más de 1 = mutante
-
-### Complejidad
-- **Tiempo**: O(n²) - donde n es el tamaño de la matriz
-- **Espacio**: O(n²) - para almacenar la matriz
-
-## 🎨 Diseño Responsivo
-
-La aplicación se adapta automáticamente a diferentes dispositivos:
-
-- **📱 Móvil** (< 768px): Layout vertical, botones apilados
-- **📊 Tablet** (768px - 1024px): Layout optimizado 
-- **🖥️ Desktop** (> 1024px): Layout horizontal completo
-
-## 🚦 Scripts Disponibles
-
-```bash
-# Desarrollo
-npm start          # Servidor de desarrollo
-npm run build      # Build de producción
-npm test           # Ejecutar tests
-npm run lint       # Linting del código
-
-# Tailwind CSS
-npx tailwindcss init  # Inicializar configuración
-```
-
-## 📊 Ejemplos de Uso
-
-### Ejemplo 1: Mutante Detectado ✅
-```
-Entrada: ATGCGA,CAGTGC,TTATGT,AGAAGG,CCCCTA,TCACTG
-Resultado: "¡Es un mutante! Se detectaron múltiples secuencias idénticas 🧬"
-```
-
-### Ejemplo 2: Humano Confirmado ❌  
-```
-Entrada: ATGCGA,CAGTGC,TTATTT,AGACGG,GCGTCA,TCACTG
-Resultado: "Es humano. No se detectaron suficientes secuencias mutantes."
-```
-
-### Ejemplo 3: Error de Validación ⚠️
-```
-Entrada: ATGCGA,CAGTGC,TTATHT,AGACGG,HHHHTC,TCACTG
-Resultado: "ADN inválido: debe ser una matriz NxN con solo caracteres A, T, C y G."
-```
-
-![Ejemplo Error Validación](./src/assets/app-error-validation.png)
-*Ejemplo real de error de validación mostrado en la aplicación*
-
-## 🔧 Configuración de Desarrollo
-
-### Tailwind CSS Setup
-```javascript
-// tailwind.config.js
-module.exports = {
-  content: ["./src/**/*.{html,ts}"],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
-```
-
-### Angular Environment
-```typescript
-// src/environments/environment.ts
-export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:3000'
-};
-```
-
-## 🤝 Contribución
-
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
-
-## 👨‍💻 Autor
-
-Desarrollado como ejercicio práctico de Angular en **2 horas**.
+- **Separación de lógica** en servicio (MutantService)
+- **Uso de Reactive Forms** para validación
+- **Validación de matriz NxN** y caracteres permitidos
+- **Corte temprano del algoritmo** al detectar múltiples secuencias  
+- **UI ligera con Tailwind** para rapidez de desarrollo
 
 ---
 
-⭐ Si te gusta este proyecto, ¡dale una estrella en GitHub!
+**👨‍💻 Desarrollado como prueba técnica en Angular**
